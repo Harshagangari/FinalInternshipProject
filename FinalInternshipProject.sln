@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PensionerDetails", "PensionerDetails", "{913CB966-7776-498E-A025-42ABAAAC3AC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProcessPension", "ProcessPension", "{B68AF7AD-0CA1-49FD-8771-8AA3AE092914}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PensionDisbursment", "PensionDisbursment", "{12438871-7B13-44C4-BAB1-D95D3165DE2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PensionerDetail", "PensionerDetail\PensionerDetail.csproj", "{10E42E7D-0DAB-48D2-8E90-28525C116D14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10E42E7D-0DAB-48D2-8E90-28525C116D14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10E42E7D-0DAB-48D2-8E90-28525C116D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10E42E7D-0DAB-48D2-8E90-28525C116D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10E42E7D-0DAB-48D2-8E90-28525C116D14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{10E42E7D-0DAB-48D2-8E90-28525C116D14} = {913CB966-7776-498E-A025-42ABAAAC3AC6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D7F31E6-08E8-4C99-83C1-22DB427B8D6A}
+	EndGlobalSection
+EndGlobal
