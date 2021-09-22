@@ -39,15 +39,16 @@ namespace PensionerDetail.Controllers
 
         [Route("getById")]
         [HttpGet]
-        public ActionResult Get(string aadharID)
+        public PensionerDetails Get(string aadharID)
         {
            
            var result = getPensioner(aadharID);
             if(result!=null)
             {
-                return Ok(result);
+                return (result);
             }
-            return BadRequest("Details did not match. Check your details again...");
+            // return BadRequest("Details did not match. Check your details again...");
+            return null;
            
         }
 

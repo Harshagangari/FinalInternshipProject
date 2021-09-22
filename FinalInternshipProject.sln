@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProcessPension", "ProcessPe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PensionDisbursment", "PensionDisbursment", "{12438871-7B13-44C4-BAB1-D95D3165DE2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PensionerDetail", "PensionerDetail\PensionerDetail.csproj", "{10E42E7D-0DAB-48D2-8E90-28525C116D14}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PensionerDetail", "PensionerDetail\PensionerDetail.csproj", "{10E42E7D-0DAB-48D2-8E90-28525C116D14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PensionDisbursment", "PensionDisbursment\PensionDisbursment.csproj", "{280E162D-F5C1-4727-B4D2-DA823929FA02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,12 +23,17 @@ Global
 		{10E42E7D-0DAB-48D2-8E90-28525C116D14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10E42E7D-0DAB-48D2-8E90-28525C116D14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10E42E7D-0DAB-48D2-8E90-28525C116D14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{280E162D-F5C1-4727-B4D2-DA823929FA02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280E162D-F5C1-4727-B4D2-DA823929FA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280E162D-F5C1-4727-B4D2-DA823929FA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280E162D-F5C1-4727-B4D2-DA823929FA02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{10E42E7D-0DAB-48D2-8E90-28525C116D14} = {913CB966-7776-498E-A025-42ABAAAC3AC6}
+		{280E162D-F5C1-4727-B4D2-DA823929FA02} = {12438871-7B13-44C4-BAB1-D95D3165DE2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8D7F31E6-08E8-4C99-83C1-22DB427B8D6A}
