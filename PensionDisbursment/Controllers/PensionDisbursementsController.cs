@@ -4,8 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PensionerDetail.Entities;
-using PensionerDetail.Controllers;
+using System.Net.Http;
 using PensionDisbursment.Entities;
 
 namespace PensionDisbursment.Controllers
@@ -32,15 +31,31 @@ namespace PensionDisbursment.Controllers
         }
         
         [HttpGet]
-        public IActionResult calculatefromdetails()
+        public string calculatefromdetails()
         {
-            var pensioner = new PensionerDetailsController().Get("ABCD12351E");
+            /*var pensioner = new PensionerDetailsController().Get("ABCD12351E");
             if( pensioner.Name.Equals("bunk seenu") &&  pensioner.dateOfBirth == new DateTime(1990,01,02))
             {
                 return Ok(pensioner.salaryEarned);
             }
             //var bankdetails = new PensionerDetailsController().getbankdetails(detailsOfPensioner.PAN);
-            return BadRequest("failed");
+            return BadRequest("failed");*/
+            using(var response = new HttpClient())
+            {
+                var id = "ABCD12351E";
+                response.BaseAddress = new Uri("http://localhost:55345/api/pensionerdetails/");
+                var responseTalk = response.GetAsync("getById?aadharId=" + id);
+                responseTalk.Wait();
+                var result = responseTalk.Result;
+                if(result.IsSuccessStatusCode)
+                {
+                    var readTalk = result.Content.ReadAsStringAsync();
+                    readTalk.Wait();
+                    return readTalk.Result;
+                }
+            }
+            return "ellellu";
+            
         }
     }
 }
