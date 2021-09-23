@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PensionerDetail", "Pensione
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PensionDisbursment", "PensionDisbursment\PensionDisbursment.csproj", "{280E162D-F5C1-4727-B4D2-DA823929FA02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessPension", "ProcessPension\ProcessPension.csproj", "{EB86FB90-DD30-4058-8EDB-8205DC129032}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProcessPension", "ProcessPension\ProcessPension.csproj", "{EB86FB90-DD30-4058-8EDB-8205DC129032}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portal", "Portal", "{72F0CFBB-8FAD-4DD8-85DF-A72B9838D09D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

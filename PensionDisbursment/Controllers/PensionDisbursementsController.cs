@@ -30,16 +30,10 @@ namespace PensionDisbursment.Controllers
 
         }
         
+        [Route("calculate")]
         [HttpGet]
-        public string calculatefromdetails()
+        public int calculatefromdetails()
         {
-            /*var pensioner = new PensionerDetailsController().Get("ABCD12351E");
-            if( pensioner.Name.Equals("bunk seenu") &&  pensioner.dateOfBirth == new DateTime(1990,01,02))
-            {
-                return Ok(pensioner.salaryEarned);
-            }
-            //var bankdetails = new PensionerDetailsController().getbankdetails(detailsOfPensioner.PAN);
-            return BadRequest("failed");*/
             using(var response = new HttpClient())
             {
                 var id = "ABCD12351E";
@@ -51,10 +45,10 @@ namespace PensionDisbursment.Controllers
                 {
                     var readTalk = result.Content.ReadAsStringAsync();
                     readTalk.Wait();
-                    return readTalk.Result;
+                    return (10);
                 }
             }
-            return "ellellu";
+            return (21);
             
         }
     }
