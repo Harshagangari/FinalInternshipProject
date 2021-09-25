@@ -39,15 +39,15 @@ namespace PensionerDetail.Controllers
 
         [Route("getById")]
         [HttpGet]
-        public PensionerDetails Get(string aadharID)
+        public ActionResult Get(string aadharID)
         {
            
-           var result = getPensioner(aadharID);
+           var result = getPensioner(Convert.ToString(aadharID));
             if(result!=null)
             {
-                return (result);
+                return Ok(result);
             }
-            return null;
+            return BadRequest("failed");
            
         }
 
