@@ -7,7 +7,7 @@ namespace ProcessPension.Entities
 {
     public class ProcessPensionInput
     {
-        public long aadhaarNumber { get; set; }
+        public string aadhaarNumber { get; set; }
         public double PensionAmount {get;set;}
     }
 }

@@ -18,14 +18,14 @@ namespace PensionDisbursment.Controllers
     {
         public PensionDisbursementsController()
         {
-            PensionerInput input = new PensionerInput()
-            {
-                Name = "bunk seenu",
-                dateOfBirth = new DateTime(1990, 01, 02),
-                PAN = "ABCD12351E",
-                aadhaar = 123456,
-                selforfamily = 0
-            };
+            //PensionerInput input = new PensionerInput()
+            //{
+            //    Name = "bunk seenu",
+            //    dateOfBirth = new DateTime(1990, 01, 02),
+            //    PAN = "ABCD12351E",
+            //    aadhaar = 123456,
+            //    selforfamily = 0
+            //};
             //calculatefromdetails(5000, input);
 
 
@@ -33,45 +33,60 @@ namespace PensionDisbursment.Controllers
         }
 
         [Route("calculate")]
-        [HttpPost]
-        public IActionResult calculatefromdetails([FromBody]dynamic inputFromPensioner,double serviceCharge)
+        [HttpGet]
+        public IActionResult calculatefromdetails(string aadhaarNo,double pensionAmount,int serviceCharge)
         {
-            //return Ok(inputFromPensioner.GetProperty("Pan"));
-            StatusCodeResult flag = new StatusCodeResult(21);
-            using(var response = new HttpClient())
-              {
-                //var jsondes =JsonConvert.DeserializeObject(inputFromPensioner);
 
-                 // JsonDocument jd = JsonDocument.Parse(inputFromPensioner);
-                  response.BaseAddress = new Uri("http://localhost:55345/api/pensionerdetails/");
-                 // var responseTalk = response.GetAsync("getById?aadharID="+jd.RootElement.GetProperty("aadhaarNumber"));
-                var responseTalk = response.GetAsync("getById?aadharID=" + inputFromPensioner.GetProperty("pensionInput").GetProperty("Pan"));
+
+            StatusCodeResult flag = new StatusCodeResult(21);
+            using (var response = new HttpClient())
+            {
+                //var jsondes =JsonConvert.DeserializeObject(inputFromPensioner);
+                // JsonDocument jd = JsonDocument.Parse(inputFromPensioner);
+
+                response.BaseAddress = new Uri("http://localhost:55345/api/pensionerdetails/");
+                var responseTalk = response.GetAsync("getById?aadharID=" + aadhaarNo);
                 responseTalk.Wait();
                 double actualPensionAmount = 0;
-                  var result = responseTalk.Result;
-                  if(result.IsSuccessStatusCode)
-                  {
+                var result = responseTalk.Result;
+                string sum = "";
+                if (result.IsSuccessStatusCode)
+                {
                     var readTalk = result.Content.ReadAsStringAsync();
                     readTalk.Wait();
                     JsonDocument jdc = JsonDocument.Parse(readTalk.Result);
-                    if(jdc.RootElement.GetProperty("pensionType").Equals(0))
+
+                    if (jdc.RootElement.GetProperty("pensionType").ToString().Equals("1"))
                     {
                         actualPensionAmount = (Double.Parse(jdc.RootElement.GetProperty("salaryEarned").ToString()) * 0.8) +
                             (Double.Parse(jdc.RootElement.GetProperty("allowances").ToString())) +
-                            (Double.Parse(inputFromPensioner.GetProperty("serviceCharge").ToString()));
+                            serviceCharge;
+
+                        //sum = (Double.Parse(jdc.RootElement.GetProperty("salaryEarned").ToString()) * 0.8) + " "+
+                        //    (Double.Parse(jdc.RootElement.GetProperty("allowances").ToString())) + " " +
+                        //    (Double.Parse(inputFromPensioner.GetProperty("serviceCharge").ToString()));
                     }
+
                     else
                     {
-                         actualPensionAmount = (Double.Parse(jdc.RootElement.GetProperty("salaryEarned").ToString()) * 0.5) +
-                            (Double.Parse(jdc.RootElement.GetProperty("allowances").ToString()))+
-                            (Double.Parse(inputFromPensioner.GetProperty("serviceCharge").ToString()));
+                        actualPensionAmount = (Double.Parse(jdc.RootElement.GetProperty("salaryEarned").ToString()) * 0.5) +
+                           (Double.Parse(jdc.RootElement.GetProperty("allowances").ToString())) +
+                           serviceCharge;
+
+                        //sum = (Double.Parse(jdc.RootElement.GetProperty("salaryEarned").ToString()) * 0.5) + " " +
+                        //   (Double.Parse(jdc.RootElement.GetProperty("allowances").ToString())) + " " +
+                        //   (Double.Parse(inputFromPensioner.GetProperty("serviceCharge").ToString()));
                     }
-                    if((Double.Parse(inputFromPensioner.GetProperty("pensionInput").GetProperty("pensionAmount").ToString()))==actualPensionAmount)
+
+
+                    if (pensionAmount != actualPensionAmount)
                     {
-                        return Ok(actualPensionAmount + 21);
+                        // return Ok(actualPensionAmount + " "+jdc.RootElement+" In if"+ " "+ sum);
+                        return new StatusCodeResult(21);
                     }
-                  }
-                return Ok(actualPensionAmount +10);
+                }
+                // return Ok(actualPensionAmount+ " "+sum);
+                return new StatusCodeResult(10);
             }
         }
     }

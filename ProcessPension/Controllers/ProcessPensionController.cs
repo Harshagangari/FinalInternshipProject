@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
 using System.Dynamic;
+using System.Web.Helpers;
+using System.Text.Json.Serialization;
 
 namespace ProcessPension.Controllers
 {
@@ -26,16 +28,15 @@ namespace ProcessPension.Controllers
 
         [Route("EnterPensionDetails")]
         [HttpGet]
-        public IActionResult getPensionDetails(dynamic inputOfPensioner)
+        public string getPensionDetails(string aadhaarNo,string name,DateTime dob,string pan,int pensiontype)
         {
             int serviceCharge = 0;
             using (var askPensionerDetails = new HttpClient())
             {              
                 askPensionerDetails.BaseAddress = new Uri("http://localhost:55345/api/PensionerDetails/");
-                var responseTalk = askPensionerDetails.GetAsync("getById?aadharID="+ inputOfPensioner.GetProperty("Pan"));
+                var responseTalk = askPensionerDetails.GetAsync("getById?aadharID="+pan);
                 responseTalk.Wait();
-                
-               
+
                 var result =responseTalk.Result ;
     
                 if (result.IsSuccessStatusCode)
@@ -45,7 +46,7 @@ namespace ProcessPension.Controllers
                     JsonDocument jd = JsonDocument.Parse(readTask.Result);
                     //inputForPensioner.aadhaarNumber = long.Parse(jd.RootElement.GetProperty("aadharID").ToString());
                   
-                    if (jd.RootElement.GetProperty("pensionType").ToString().Equals("1"))
+                    if (jd.RootElement.GetProperty("pensionType").ToString().Equals("0"))
                     {
                         pensionToDisburse = (Double.Parse(jd.RootElement.GetProperty("salaryEarned").ToString()) * 0.8) +
                             (Double.Parse(jd.RootElement.GetProperty("allowances").ToString()));
@@ -60,6 +61,7 @@ namespace ProcessPension.Controllers
                     {
                         pensionToDisburse += 500;
                         serviceCharge = 500;
+                        
                     }
                     else
                     {
@@ -67,37 +69,44 @@ namespace ProcessPension.Controllers
                         serviceCharge = 550;
                     }
                     inputForPensioner.PensionAmount = pensionToDisburse;
+                    inputForPensioner.aadhaarNumber = jd.RootElement.GetProperty("pan").ToString();
 
-                  // var postResult = processPensionInput(inputForPensioner,serviceCharge );
-                    return Ok(pensionToDisburse);
+                  var postResult = processPensionInput(inputForPensioner,serviceCharge );
+                    if(postResult.Equals("Okay"))
+                    {
+                        return pensionToDisburse.ToString();
+                    }
+                    else
+                    return ("Check your details and fill again !");
                 }
             }
-            return BadRequest("failed");
+            return ("failed");
         }
 
 
 
         [Route("PostDetails")]
         [HttpPost]
-        public IActionResult processPensionInput(ProcessPensionInput inputFromPensioner,int serviceCharge)
+        public string processPensionInput([FromBody] ProcessPensionInput inputFromPensionerBody,int serviceCharge)
         {
+           //return Ok(inputFromPensionerBody);
             using(var askPensionDisbursement = new HttpClient())
             {
-               var jsonstring = JsonConvert.SerializeObject(inputFromPensioner);
+                //return Ok(inputFromPensionerBody);
                askPensionDisbursement.BaseAddress = new Uri("http://localhost:51549/api/PensionDisbursements/");
-                var responseTalk = askPensionDisbursement.GetAsync("calculate?inputFromPensioner="+jsonstring);
+                var responseTalk = askPensionDisbursement.GetAsync("calculate?aadhaarNo="+inputFromPensionerBody.aadhaarNumber+
+                    "&pensionAmount="+inputFromPensionerBody.PensionAmount+"&serviceCharge="+serviceCharge);
                 responseTalk.Wait();
 
-
+                //return Ok(responseTalk.Result.Content.ReadAsStringAsync().Result);
                 int code = (int)responseTalk.Result.StatusCode;
                 if(code==10)
                   {
                       var readTask = responseTalk.Result.Content.ReadAsStringAsync();
 
-                      return Ok(readTask.Result);
+                      return ("Okay");
                   }
-                
-                return Ok(responseTalk.Result+"hello");
+                return ("Not okay");
                
             }
            

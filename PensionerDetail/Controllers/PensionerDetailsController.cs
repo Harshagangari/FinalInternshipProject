@@ -41,7 +41,7 @@ namespace PensionerDetail.Controllers
         [HttpGet]
         public ActionResult Get(string aadharID)
         {
-           
+            
            var result = getPensioner(Convert.ToString(aadharID));
             if(result!=null)
             {
