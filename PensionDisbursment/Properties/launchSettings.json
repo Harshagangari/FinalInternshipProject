@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "PensionDisbursement",
+      "launchUrl": "http://localhost:51549/api/PensionDisbursement",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

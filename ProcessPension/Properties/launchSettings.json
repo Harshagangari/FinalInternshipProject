@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "ProcessPension",
+      "launchUrl": "http://localhost:43152/api/ProcessPension",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

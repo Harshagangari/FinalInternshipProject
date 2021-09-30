@@ -56,7 +56,7 @@ namespace PensionDisbursment.Controllers
                     readTalk.Wait();
                     JsonDocument jdc = JsonDocument.Parse(readTalk.Result);
 
-                    if (jdc.RootElement.GetProperty("pensionType").ToString().Equals("1"))
+                    if (jdc.RootElement.GetProperty("pensionType").ToString().Equals("0"))
                     {
                         actualPensionAmount = (Double.Parse(jdc.RootElement.GetProperty("salaryEarned").ToString()) * 0.8) +
                             (Double.Parse(jdc.RootElement.GetProperty("allowances").ToString())) +
@@ -81,11 +81,11 @@ namespace PensionDisbursment.Controllers
 
                     if (pensionAmount != actualPensionAmount)
                     {
-                        // return Ok(actualPensionAmount + " "+jdc.RootElement+" In if"+ " "+ sum);
+                        //return Ok(actualPensionAmount + " "+jdc.RootElement+" In if"+ " "+ sum);
                         return new StatusCodeResult(21);
                     }
                 }
-                // return Ok(actualPensionAmount+ " "+sum);
+                //return Ok(actualPensionAmount+ " "+sum);
                 return new StatusCodeResult(10);
             }
         }

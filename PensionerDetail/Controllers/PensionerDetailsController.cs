@@ -28,11 +28,23 @@ namespace PensionerDetail.Controllers
                 {
                     Name = "bunk seenu",
                     dateOfBirth = new DateTime(1990, 01, 02),
-                    PAN = "ABCD12351E",
+                    PAN = "ABCDE1234F",
                     salaryEarned = 45000,
                     allowances = 500,
                     pensionType = PensionerDetails.PensionType.family,
                     bankDetails = new BankDetails() { bankType=BankType.publicbank,bankName="SBI",accountNumber="SBI00001BS"}
+                }
+                );
+            pensioners.Add(
+                new PensionerDetails()
+                {
+                    Name = "pampacheck",
+                    dateOfBirth = new DateTime(1976,05,03),
+                    PAN = "NXXGF7589T",
+                    salaryEarned = 65000,
+                    allowances = 1000,
+                    pensionType = PensionerDetails.PensionType.self,
+                    bankDetails = new BankDetails() { bankType = BankType.publicbank, bankName = "Union", accountNumber = "UNB55002PC" }
                 }
                 );
         }

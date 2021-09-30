@@ -46,7 +46,7 @@ namespace ProcessPension.Controllers
                     JsonDocument jd = JsonDocument.Parse(readTask.Result);
                     //inputForPensioner.aadhaarNumber = long.Parse(jd.RootElement.GetProperty("aadharID").ToString());
                   
-                    if (jd.RootElement.GetProperty("pensionType").ToString().Equals("0"))
+                    if (pensiontype.ToString().Equals("0"))
                     {
                         pensionToDisburse = (Double.Parse(jd.RootElement.GetProperty("salaryEarned").ToString()) * 0.8) +
                             (Double.Parse(jd.RootElement.GetProperty("allowances").ToString()));
@@ -56,8 +56,9 @@ namespace ProcessPension.Controllers
                         pensionToDisburse = (Double.Parse(jd.RootElement.GetProperty("salaryEarned").ToString()) * 0.5) +
                            (Double.Parse(jd.RootElement.GetProperty("allowances").ToString()));
                     }
+
                     var bankDetails = jd.RootElement.GetProperty("bankDetails");
-                    if (jd.RootElement.GetProperty("bankDetails").GetProperty("bankType").Equals("0"))
+                    if (jd.RootElement.GetProperty("bankDetails").GetProperty("bankType").ToString().Equals("0"))
                     {
                         pensionToDisburse += 500;
                         serviceCharge = 500;
@@ -70,14 +71,16 @@ namespace ProcessPension.Controllers
                     }
                     inputForPensioner.PensionAmount = pensionToDisburse;
                     inputForPensioner.aadhaarNumber = jd.RootElement.GetProperty("pan").ToString();
-
                   var postResult = processPensionInput(inputForPensioner,serviceCharge );
-                    if(postResult.Equals("Okay"))
+                    //return pensionToDisburse.ToString()+" disburse" //23500;
+                    //return postResult.ToString();
+                    if (postResult.ToString().Equals("Ok"))
                     {
                         return pensionToDisburse.ToString();
                     }
                     else
-                    return ("Check your details and fill again !");
+                        return ("Check your details and fill again !");
+                        //return result.Content.ReadAsStringAsync().Result;
                 }
             }
             return ("failed");
@@ -100,13 +103,14 @@ namespace ProcessPension.Controllers
 
                 //return Ok(responseTalk.Result.Content.ReadAsStringAsync().Result);
                 int code = (int)responseTalk.Result.StatusCode;
+                
                 if(code==10)
                   {
                       var readTask = responseTalk.Result.Content.ReadAsStringAsync();
 
-                      return ("Okay");
+                      return ("Ok");
                   }
-                return ("Not okay");
+                return ("NotOK");
                
             }
            

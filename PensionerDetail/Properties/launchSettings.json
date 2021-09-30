@@ -20,7 +20,7 @@
     "PensionerDetail": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "PensionerDetails",
+      "launchUrl": "http://localhost:55345/api/PensionerDetails",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
