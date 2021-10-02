@@ -38,7 +38,7 @@ namespace PensionDetailsTest
             Assert.AreEqual(list[0].allowances, pensioner.allowances);
             list.RemoveAt(0);
         }
-        [TestCase("ABCD12351E")]
+        [TestCase("ABCDE1234F")]
         public void PensionDetail_getBankDetails(string PAN)
         {
             PensionerDetailsController BankDetails = new PensionerDetailsController();
@@ -56,17 +56,14 @@ namespace PensionDetailsTest
             Assert.AreEqual(actualBankdetails[0].accountNumber, expectedBankDetails.accountNumber);
 
         }
-        [TestCase("ABCD12351E")]
+        [TestCase("ABCDE1234F")]
         public void PensionDetail_GetOK200(string PAN)
         {
             PensionerDetailsController contr = new PensionerDetailsController();
-            IHttpActionResult pensioner = (IHttpActionResult)contr.getPensioner(PAN);
-            var contentResult = pensioner as OkNegotiatedContentResult<PensionerDetails>;
-            list.Add(details);
-
-            Assert.IsNotNull(pensioner);
-            Assert.AreEqual(list, pensioner);
-            //Assert.IsInstanceOfType(new HttpStatusCodeResult(200),contentResul);
+            IActionResult pensioner = contr.Get(PAN);
+          
+            Assert.IsInstanceOf<Microsoft.AspNetCore.Mvc.OkObjectResult>(pensioner);
+            
         }
 
         //readonly string PANnotFound = "ASDFN1234D";
@@ -87,16 +84,13 @@ namespace PensionDetailsTest
             Assert.IsNull(expectedBankDetails);
         }
 
-        //[Test]
+        
         [TestCase("ASDFN1234D")]
         public void PensionDetail_BadRequest400(string PANnotFound)
         {
             PensionerDetailsController contr = new PensionerDetailsController();
             IActionResult pensioner =  contr.Get(PANnotFound);
-            //List<PensionerDetails> list = new List<PensionerDetails>();
-            //list.Add(details);
-            //Assert.IsNull(pensioner);
-            //Assert.AreEqual(Microsoft.AspNetCore.Mvc.BadRequestResult,pensioner);
+           
             Assert.IsInstanceOf<Microsoft.AspNetCore.Mvc.BadRequestResult>(pensioner);
           
 
