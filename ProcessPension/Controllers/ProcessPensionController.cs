@@ -38,11 +38,11 @@ namespace ProcessPension.Controllers
                 responseTalk.Wait();
 
                 var result =responseTalk.Result ;
-    
+                
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsStringAsync();
-                   
+                    
                     JsonDocument jd = JsonDocument.Parse(readTask.Result);
                     //inputForPensioner.aadhaarNumber = long.Parse(jd.RootElement.GetProperty("aadharID").ToString());
                   

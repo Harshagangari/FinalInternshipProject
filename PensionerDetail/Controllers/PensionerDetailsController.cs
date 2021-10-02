@@ -47,11 +47,23 @@ namespace PensionerDetail.Controllers
                     bankDetails = new BankDetails() { bankType = BankType.publicbank, bankName = "Union", accountNumber = "UNB55002PC" }
                 }
                 );
+             pensioners.Add(
+                new PensionerDetails()
+                {
+                    Name = "James Bond",
+                    dateOfBirth = new DateTime(1959,07,12),
+                    PAN = "YTUIR7582N",
+                    salaryEarned = 80900,
+                    allowances = 15650,
+                    pensionType = PensionerDetails.PensionType.self,
+                    bankDetails = new BankDetails() { bankType = BankType.privatebank, bankName = "SWISS", accountNumber = "SW00723JB" }
+                }
+                );
         }
 
         [Route("getById")]
         [HttpGet]
-        public ActionResult Get(string aadharID)
+        public IActionResult Get(string aadharID)
         {
             
            var result = getPensioner(Convert.ToString(aadharID));
@@ -59,7 +71,8 @@ namespace PensionerDetail.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest("failed");
+            //return BadRequestResult("failed");
+            return new BadRequestResult();
            
         }
 
